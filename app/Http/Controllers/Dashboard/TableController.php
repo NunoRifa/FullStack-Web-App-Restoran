@@ -68,6 +68,7 @@ class TableController extends Controller
      */
     public function destroy(Table $table)
     {
-        //
+        $table->delete();
+        return redirect()->route('dashboard.tables')->with('success', 'Table created successfully.');
     }
 }

@@ -20,6 +20,10 @@ class Table extends Model
         self::STATUS_REPARATION,
     ];
 
+    protected $primaryKey = 'tables_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'tables_id',
         'tables_name',

@@ -15,7 +15,7 @@
         'class' => "inline-flex items-center justify-center text-center mb-1 sm:mx-px py-2 sm:px-3
                     border border-transparent rounded-md font-semibold text-xs text-white uppercase
                     tracking-widest w-2/3 sm:w-auto focus:outline-none focus:ring-2
-                    focus:ring-offset-2 transition ease-in-out duration-150 $classes"
+                    focus:ring-offset-2 transition ease-in-out duration-150 $classes cursor-pointer"
     ]) }}
 >
     {{ $slot }}

@@ -3,7 +3,7 @@
 <div class="flex flex-col md:flex-row justify-between md:items-center mb-4">
     @if ($create)
         <a href="{{ $create['url'] }}">
-            <x-button class="mb-4 bg-white dark:bg-zinc-800 dark:hover:bg-white/[7%] hover:bg-zinc-800/5 md:mb-0 w-1/2">{{ $create['label'] }}</x-button>
+            <x-button class="mb-4 bg-white dark:bg-green-800 dark:hover:bg-white/[7%] hover:bg-green-800/5 md:mb-0 w-1/2">{{ $create['label'] }}</x-button>
         </a>
     @endif
 
