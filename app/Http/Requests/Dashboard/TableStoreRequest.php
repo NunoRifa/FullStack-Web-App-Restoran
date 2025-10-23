@@ -23,13 +23,25 @@ class TableStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'tables_id' => ['required', 'string', 'max:255', 'unique:tables,tables_id'],
+        $rules = [
             'tables_name' => ['required', 'string', 'max:255'],
-            'tables_capacity' => ['required', 'integer', 'min:1', 'max:127'], // max 127 (TinyInt limit)
+            'tables_capacity' => ['required', 'integer', 'min:1', 'max:127'],
             'tables_location' => ['nullable', 'string', 'max:255'],
             'tables_status' => ['required', Rule::in(Table::STATUSES)],
         ];
+
+        if ($this->isMethod('post')) {
+            $rules['tables_id'] = ['required', 'string', 'max:255', 'unique:tables,tables_id'];
+        } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
+            $rules['tables_id'] = [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('tables', 'tables_id')->ignore($this->table, 'tables_id'),
+            ];
+        }
+
+        return $rules;
     }
 
     public function messages(): array

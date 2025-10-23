@@ -25,21 +25,9 @@ Route::view('order', 'order')
     ->name('order');
 
 // Tables
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('dashboard/tables', TableController::class)
-        ->names([
-            'index' => 'dashboard.tables',
-            'create' => 'dashboard.tables.create',
-            'store' => 'dashboard.tables.store',
-            'show' => 'dashboard.tables.show',
-            'edit' => 'dashboard.tables.edit',
-        ])
-        ->only(['index', 'create', 'store', 'show', 'edit']);
+Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard.')->group(function () {
+    Route::resource('tables', TableController::class)->except(['show']);
 });
-
-Route::delete('dashboard/tables/{table}', [TableController::class, 'destroy'])
-    ->name('dashboard.tables.destroy');
-
 
 
 // Menu

@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Table extends Model
 {
+    use HasFactory;
+
     const STATUS_AVAILABLE = 'Available';
     const STATUS_RESERVED = 'Reserved';
     const STATUS_OCCUPIED = 'Occupied';
@@ -29,31 +32,41 @@ class Table extends Model
         'tables_name',
         'tables_capacity',
         'tables_location',
-        'tables_status'
+        'tables_status',
     ];
 
-    public function isAvailable(): bool
-    {
-        return $this->tables_status == self::STATUS_AVAILABLE;
-    }
-
-    public function isReserved(): bool
-    {
-        return $this->tables_status == self::STATUS_RESERVED;
-    }
+    protected $casts = [
+        'tables_capacity' => 'integer',
+    ];
 
     public static function applyFilters($request, $sortableColumns)
     {
         $query = self::query();
 
-        if ($request->filled('search')) {
-            $query->where('tables_name', 'like', '%' . $request->search . '%');
+        if ($search = $request->get('search')) {
+            $query->where('tables_name', 'like', "%{$search}%");
         }
 
-        if ($request->filled('sort') && in_array($request->sort, $sortableColumns)) {
-            $query->orderBy($request->sort, $request->get('direction', 'asc'));
+        if ($sort = $request->get('sort')) {
+            $direction = in_array(strtolower($request->get('direction')), ['asc', 'desc'])
+                ? $request->get('direction')
+                : 'asc';
+
+            if (in_array($sort, $sortableColumns)) {
+                $query->orderBy($sort, $direction);
+            }
         }
 
         return $query;
+    }
+
+    public function isAvailable(): bool
+    {
+        return $this->tables_status === self::STATUS_AVAILABLE;
+    }
+
+    public function isReserved(): bool
+    {
+        return $this->tables_status === self::STATUS_RESERVED;
     }
 }

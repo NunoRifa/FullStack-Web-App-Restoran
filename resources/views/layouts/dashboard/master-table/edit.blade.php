@@ -1,32 +1,32 @@
-<x-layouts.app :title="__('Master Meja - Create')">
+<x-layouts.app :title="__('Master Meja - Update')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <x-form-card :title="__('Buat Meja')">
-                <form action="{{ route('dashboard.tables.store') }}" method="post">
+            <x-form-card :title="__('Update Meja')">
+                <form action="{{ route('dashboard.tables.update', $table->tables_id) }}" method="post">
                     @csrf
-                    @method('post')
+                    @method('put')
 
                     <div class="mb-4">
                         <x-input-label :value="__('Kode Meja:')" required />
-                        <x-text-input id="tables_id" name="tables_id" type="text" autocomplete="off" />
+                        <x-text-input id="tables_id" name="tables_id" type="text" value="{{ $table->tables_id }}" autocomplete="off" readonly />
                         <x-input-error :messages="$errors->get('tables_id')" />
                     </div>
 
                     <div class="mb-4">
                         <x-input-label :value="__('Nama/Nomor Meja:')" required />
-                        <x-text-input id="tables_name" name="tables_name" type="text" autocomplete="off" />
+                        <x-text-input id="tables_name" name="tables_name" type="text" value="{{ $table->tables_name }}" autocomplete="off" />
                         <x-input-error :messages="$errors->get('tables_name')" />
                     </div>
 
                     <div class="mb-4">
                         <x-input-label :value="__('Kapasitas Meja:')" required />
-                        <x-text-input id="table_capacity" name="tables_capacity" type="number" autocomplete="off" />
+                        <x-text-input id="table_capacity" name="tables_capacity" type="number" value="{{ $table->tables_capacity }}" autocomplete="off" />
                         <x-input-error :messages="$errors->get('tables_capacity')" />
                     </div>
 
                     <div class="mb-4">
                         <x-input-label :value="__('Lokasi Meja: (mis.: Indoor/Outdoor)')" />
-                        <x-text-input id="table_location" name="tables_location" type="text" autocomplete="off" />
+                        <x-text-input id="table_location" name="tables_location" type="text" value="{{ $table->tables_location }}" autocomplete="off" />
                         <x-input-error :messages="$errors->get('tables_location')" />
                     </div>
 
@@ -38,7 +38,7 @@
                             'Occupied' => 'Occupied',
                             'Cleaning' => 'Cleaning',
                             'Reparation' => 'Reparation',
-                        ]" id="tables_status" name="tables_status" />
+                        ]" id="tables_status" name="tables_status" :selected="$table->tables_status" />
                         <x-input-error :messages="$errors->get('tables_status')" />
                     </div>
 

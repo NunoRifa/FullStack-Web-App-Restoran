@@ -22,8 +22,8 @@
                 </flux:navlist.group>
 
                 <flux:navlist.group :heading="__('Master Settings')" class="grid">
-                    <flux:navlist.item icon="squares-plus" :href="route('dashboard.tables')" :current="request()->routeIs('dashboard.tables')" wire:navigate>{{ __('Master Tables') }}</flux:navlist.item>
-                    <flux:navlist.item icon="newspaper" :href="route('dashboard.tables')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Master Menu') }}</flux:navlist.item>
+                    <flux:navlist.item icon="squares-plus" :href="route('dashboard.tables.index')" :current="request()->routeIs('dashboard.tables.index')" wire:navigate>{{ __('Master Tables') }}</flux:navlist.item>
+                    <flux:navlist.item icon="newspaper" :href="route('dashboard.tables.index')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Master Menu') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

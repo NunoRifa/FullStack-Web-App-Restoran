@@ -7,6 +7,8 @@ use App\Http\Requests\Dashboard\TableStoreRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Exception;
+
 class TableController extends Controller
 {
     /**
@@ -36,7 +38,7 @@ class TableController extends Controller
     {
         Table::create($request->validated());
 
-        return redirect()->route('dashboard.tables')->with('success', 'Table created successfully.');
+        return redirect()->route('dashboard.tables.index')->with('success', 'Table created successfully.');
     }
 
     /**
@@ -52,15 +54,17 @@ class TableController extends Controller
      */
     public function edit(Table $table)
     {
-        //
+        return view('layouts.dashboard.master-table.edit', compact('table'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Table $table)
+    public function update(TableStoreRequest $request, Table $table)
     {
-        //
+        $table->update($request->validated());
+
+        return redirect()->route('dashboard.tables.index')->with('success', 'Table update successfully.');
     }
 
     /**
@@ -68,7 +72,13 @@ class TableController extends Controller
      */
     public function destroy(Table $table)
     {
-        $table->delete();
-        return redirect()->route('dashboard.tables')->with('success', 'Table created successfully.');
+        try {
+            $table->delete();
+            return redirect()->route('dashboard.tables.index')
+                ->with('success', 'Table deleted successfully.');
+        } catch (Exception $e) {
+            return redirect()->route('dashboard.tables.index')
+                ->with('error', 'Failed to delete table.');
+        }
     }
 }
