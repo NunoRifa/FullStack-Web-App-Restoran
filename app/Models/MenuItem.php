@@ -76,7 +76,7 @@ class MenuItem extends Model
             return '-';
         }
 
-        return Str::of(number_format($this->menu_items_price, 0, ',', '.'))->prepend('Rp ');
+        return 'Rp ' . number_format($this->menu_items_price, 0, ',', '.');
     }
 
     public function isActive(): bool
