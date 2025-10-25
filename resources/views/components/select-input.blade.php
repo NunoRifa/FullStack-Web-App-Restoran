@@ -40,7 +40,7 @@
                 }
             })"
             class="fixed z-[9999] bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-white/10
-               rounded-md shadow-lg p-2 max-h-40 overflow-y-auto">
+               rounded-md shadow-lg p-2 overflow-y-auto">
             <template x-for="(label, key) in options" :key="key">
                 <div @click="selectItem(key)"
                     class="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-600 rounded-md cursor-pointer">

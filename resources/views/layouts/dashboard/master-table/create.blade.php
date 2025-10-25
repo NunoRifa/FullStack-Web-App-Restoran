@@ -6,27 +6,21 @@
                     @csrf
                     @method('post')
 
-                    {{-- <div class="mb-4">
-                        <x-input-label :value="__('Kode Meja:')" required />
-                        <x-text-input id="tables_id" name="tables_id" type="text" autocomplete="off" readonly />
-                        <x-input-error :messages="$errors->get('tables_id')" />
-                    </div> --}}
-
                     <div class="mb-4">
                         <x-input-label :value="__('Nama/Nomor Meja:')" required />
-                        <x-text-input id="tables_name" name="tables_name" type="text" autocomplete="off" />
+                        <x-text-input id="tables_name" name="tables_name" type="text" value="{{ old('tables_name') }}" autocomplete="off" />
                         <x-input-error :messages="$errors->get('tables_name')" />
                     </div>
 
                     <div class="mb-4">
                         <x-input-label :value="__('Kapasitas Meja:')" required />
-                        <x-text-input id="tables_capacity" name="tables_capacity" type="number" autocomplete="off" />
+                        <x-text-input id="tables_capacity" name="tables_capacity" type="number" value="{{ old('tables_capacity') }}" autocomplete="off" />
                         <x-input-error :messages="$errors->get('tables_capacity')" />
                     </div>
 
                     <div class="mb-4">
                         <x-input-label :value="__('Lokasi Meja: (mis.: Indoor/Outdoor)')" />
-                        <x-text-input id="table_location" name="tables_location" type="text" autocomplete="off" />
+                        <x-text-input id="table_location" name="tables_location" type="text" value="{{ old('tables_location') }}" autocomplete="off" />
                         <x-input-error :messages="$errors->get('tables_location')" />
                     </div>
 
@@ -38,7 +32,7 @@
                             'Occupied' => 'Occupied',
                             'Cleaning' => 'Cleaning',
                             'Reparation' => 'Reparation',
-                        ]" id="tables_status" name="tables_status" />
+                        ]" id="tables_status" name="tables_status" selected="{{ old('tables_status') }}" />
                         <x-input-error :messages="$errors->get('tables_status')" />
                     </div>
 
