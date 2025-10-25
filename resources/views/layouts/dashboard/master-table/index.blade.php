@@ -4,7 +4,8 @@
             <x-form-card :title="__('List Meja')">
                 <x-table
                 :create="auth()->user() ? ['url' => route('dashboard.tables.create'), 'label' => __('Buat Meja')] : null"
-                :headers="['id', 'tables_name', 'tables_capacity', 'tables_location', 'tables_status']" :labels="[
+                :headers="['id', 'tables_name', 'tables_capacity', 'tables_location', 'tables_status']"
+                :labels="[
                     'Kode Meja',
                     __('Nama/Nomor Meja'),
                     __('Kapasitas Meja'),

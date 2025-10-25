@@ -42,7 +42,7 @@
                                             class="flex items-center space-x-1">
                                             <span>{{ $label }}</span>
                                             @if ($currentSort === $key)
-                                                {!! $currentOrder === 'asc' ? '&uarr;' : '&darr;' !!}
+                                                {!! $currentOrder === 'asc' ? '&nbsp;&uarr;' : '&nbsp;&darr;' !!}
                                             @endif
                                         </a>
                                     @else

@@ -6,11 +6,11 @@
                     @csrf
                     @method('post')
 
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <x-input-label :value="__('Kode Meja:')" required />
-                        <x-text-input id="tables_id" name="tables_id" type="text" autocomplete="off" />
+                        <x-text-input id="tables_id" name="tables_id" type="text" autocomplete="off" readonly />
                         <x-input-error :messages="$errors->get('tables_id')" />
-                    </div>
+                    </div> --}}
 
                     <div class="mb-4">
                         <x-input-label :value="__('Nama/Nomor Meja:')" required />
@@ -20,7 +20,7 @@
 
                     <div class="mb-4">
                         <x-input-label :value="__('Kapasitas Meja:')" required />
-                        <x-text-input id="table_capacity" name="tables_capacity" type="number" autocomplete="off" />
+                        <x-text-input id="tables_capacity" name="tables_capacity" type="number" autocomplete="off" />
                         <x-input-error :messages="$errors->get('tables_capacity')" />
                     </div>
 

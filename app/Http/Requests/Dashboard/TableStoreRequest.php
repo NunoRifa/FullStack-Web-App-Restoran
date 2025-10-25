@@ -30,26 +30,12 @@ class TableStoreRequest extends FormRequest
             'tables_status' => ['required', Rule::in(Table::STATUSES)],
         ];
 
-        if ($this->isMethod('post')) {
-            $rules['tables_id'] = ['required', 'string', 'max:255', 'unique:tables,tables_id'];
-        } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
-            $rules['tables_id'] = [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('tables', 'tables_id')->ignore($this->table, 'tables_id'),
-            ];
-        }
-
         return $rules;
     }
 
     public function messages(): array
     {
         return [
-            'tables_id.required' => __('validation.required', ['attribute' => __('Kode Meja')]),
-            'tables_id.string' => __('validation.string', ['attribute' => __('Kode Meja')]),
-            'tables_id.max' => __('validation.max', ['attribute' => __('Kode Meja'), 'max' => 255]),
             'tables_name.required' => __('validation.required', ['attribute' => __('Nama/Nomor Meja')]),
             'tables_name.string' => __('validation.string', ['attribute' => __('Nama/Nomor Meja')]),
             'tables_name.max' => __('validation.max', ['attribute' => __('Nama/Nomor Meja'), 'max' => 255]),

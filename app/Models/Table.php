@@ -24,8 +24,8 @@ class Table extends Model
     ];
 
     protected $primaryKey = 'tables_id';
-    public $incrementing = false;
     protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = [
         'tables_id',
@@ -38,6 +38,20 @@ class Table extends Model
     protected $casts = [
         'tables_capacity' => 'integer',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->tables_id)) {
+                $lastId = self::orderBy('tables_id', 'desc')->value('tables_id');
+                $num = $lastId ? (int) str_replace('TBL-', '', $lastId) : 0; // Ambil angka terakhir (misalnya dari "TBL-0042" -> 42)
+
+                $model->tables_id = 'TBL-' . str_pad($num + 1, 4, 0, STR_PAD_LEFT);
+            }
+        });
+    }
 
     public static function applyFilters($request, $sortableColumns)
     {

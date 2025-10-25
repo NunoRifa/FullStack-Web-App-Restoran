@@ -5,6 +5,7 @@ use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 
 use App\Http\Controllers\Dashboard\TableController;
+use App\Http\Controllers\Dashboard\MenuItemController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,11 +30,10 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard.')
     Route::resource('tables', TableController::class)->except(['show']);
 });
 
-
 // Menu
-Route::view('menu', 'menu')
-    ->middleware(['auth', 'verified'])
-    ->name('menu');
+Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard.')->group(function () {
+    Route::resource('menu', MenuItemController::class)->except(['show']);
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
