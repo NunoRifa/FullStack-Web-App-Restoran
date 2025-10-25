@@ -17,9 +17,11 @@
                     return [
                         'id' => $menu->menu_items_id,
                         'menu_items_name' => $menu->menu_items_name,
-                        'menu_items_price' => $menu->menu_items_price,
+                        'menu_items_price' => $menu->formatted_price,
                         'menu_items_category' => $menu->menu_items_category,
-                        'is_active' => $menu->is_active,
+                        'is_active' => @verbatim
+                            $menu->is_active ? '<span class="bg-green-100 text-green-700 text-sm px-2 py-1 mx-px mb-2 rounded-md inline-block break-all">'.__('Active').'</span>' : '<span class="bg-red-100 text-red-700 text-sm px-2 py-1 mx-px mb-2 rounded-md inline-block break-all">'.__('In Active').'</span>'
+                        @endverbatim,
                         'actions' => array_filter([
                             [
                                 'name' => 'edit',

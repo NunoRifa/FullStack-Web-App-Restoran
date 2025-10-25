@@ -36,7 +36,7 @@
                         <x-input-label :value="__('Status Menu:')" required />
                         <x-select-input :options="[
                             1 => 'Active',
-                            0 => 'InActive',
+                            0 => 'In Active',
                         ]" id="is_active" name="is_active" selected="{{ old('is_active') }}" />
                         <x-input-error :messages="$errors->get('is_active')" />
                     </div>

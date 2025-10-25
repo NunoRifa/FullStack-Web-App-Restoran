@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class MenuItem extends Model
 {
@@ -67,6 +68,15 @@ class MenuItem extends Model
         }
 
         return $query;
+    }
+
+    public function getFormattedPriceAttribute(): string
+    {
+        if ($this->menu_items_price === null) {
+            return '-';
+        }
+
+        return Str::of(number_format($this->menu_items_price, 0, ',', '.'))->prepend('Rp ');
     }
 
     public function isActive(): bool
