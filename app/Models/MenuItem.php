@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class MenuItem extends Model
 {
@@ -50,20 +49,30 @@ class MenuItem extends Model
         });
     }
 
-    public static function applyFilters($request, $sort)
+    public static function applyFilters($request, $sortableColumns)
     {
         $query = self::query();
 
         if ($search = $request->get('search')) {
-            $query->where('menu_items_name', 'like', "%{$search}%");
+            $query->where(function ($q) use ($search) {
+                $q->where('menu_items_name', 'like', "%{$search}%")
+                ->orWhere('menu_items_category', 'like', "%{$search}%");
+            });
         }
 
         $sorts = $request->get('sort', 'menu_items_name');
-        $direction = in_array(strtolower($request->get('direction')), ['asc', 'desc'])
-            ? $request->get('direction')
-            : 'asc';
 
-        if (in_array($sorts, $sort)) {
+        if ($sorts === 'id') {
+            $sorts = 'menu_items_id';
+        }
+
+        $direction = strtolower($request->get('direction', $request->get('order', 'asc')));
+
+        if (!in_array($direction, ['asc', 'desc'])) {
+            $direction = 'asc';
+        }
+
+        if (in_array($sorts, $sortableColumns)) {
             $query->orderBy($sorts, $direction);
         }
 

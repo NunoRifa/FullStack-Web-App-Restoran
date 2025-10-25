@@ -58,17 +58,27 @@ class Table extends Model
         $query = self::query();
 
         if ($search = $request->get('search')) {
-            $query->where('tables_name', 'like', "%{$search}%");
+            $query->where(function ($q) use ($search) {
+                $q->where('tables_name', 'like', "%{$search}%")
+                ->orWhere('tables_capacity', 'like', "%{$search}%")
+                ->orWhere('tables_location', 'like', "%{$search}%");
+            });
         }
 
-        if ($sort = $request->get('sort')) {
-            $direction = in_array(strtolower($request->get('direction')), ['asc', 'desc'])
-                ? $request->get('direction')
-                : 'asc';
+        $sorts = $request->get('sort', 'tables_name');
 
-            if (in_array($sort, $sortableColumns)) {
-                $query->orderBy($sort, $direction);
-            }
+        if ($sorts === 'id') {
+            $sorts = 'tables_id';
+        }
+
+        $direction = strtolower($request->get('direction', $request->get('order', 'asc')));
+
+        if (!in_array($direction, ['asc', 'desc'])) {
+            $direction = 'asc';
+        }
+
+        if (in_array($sorts, $sortableColumns)) {
+            $query->orderBy($sorts, $direction);
         }
 
         return $query;

@@ -14,7 +14,7 @@ class MenuItemController extends Controller
      */
     public function index(Request $request)
     {
-        $sort = ['menu_items_id ', 'menu_items_name'];
+        $sort = ['menu_items_id', 'menu_items_name'];
 
         $menus = MenuItem::applyFilters($request, $sort)->paginate(10);
 
