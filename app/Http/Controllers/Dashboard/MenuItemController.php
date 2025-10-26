@@ -54,15 +54,17 @@ class MenuItemController extends Controller
      */
     public function edit(MenuItem $menuItem)
     {
-        //
+        return view('layouts.dashboard.master-menu.edit', compact('menuItem'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MenuItem $menuItem)
+    public function update(MenuItemStoreRequest $request, MenuItem $menuItem)
     {
-        //
+        $menuItem->update($request->validated());
+
+        return redirect()->route('dashboard.menuItems.index')->with('success', 'Menu update successfully.');
     }
 
     /**
