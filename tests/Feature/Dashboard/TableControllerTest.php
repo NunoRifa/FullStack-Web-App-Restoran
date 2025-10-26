@@ -49,7 +49,6 @@ test('user can store new table', function () {
 
 test('store fails when validation fails', function () {
     $data = [
-        'tables_id' => '', // invalid
         'tables_name' => '',
         'tables_capacity' => 0, // invalid min:1
         'tables_status' => 'InvalidStatus',
@@ -57,13 +56,14 @@ test('store fails when validation fails', function () {
 
     $response = $this->post(route('dashboard.tables.store'), $data);
 
-    $response->assertSessionHasErrors(['tables_id', 'tables_name', 'tables_capacity', 'tables_status']);
+    $response->assertSessionHasErrors(['tables_name', 'tables_capacity', 'tables_status']);
 });
 
 test('user can edit table', function () {
     $table = Table::factory()->create();
 
-    $response = $this->get(route('dashboard.tables.edit', $table));
+    $route = route('dashboard.tables.edit', ['table' => $table->encrypted_id]);
+    $response = $this->get($route);
 
     $response->assertStatus(200);
     $response->assertViewIs('layouts.dashboard.master-table.edit');
@@ -90,7 +90,7 @@ test('user can update table', function () {
 test('user can delete table', function () {
     $table = Table::factory()->create();
 
-    $response = $this->delete(route('dashboard.tables.destroy', $table));
+    $response = $this->delete(route('dashboard.tables.destroy', $table->encrypted_id));
 
     $response->assertRedirect(route('dashboard.tables.index'));
     $this->assertDatabaseMissing('tables', ['tables_id' => $table->tables_id]);
