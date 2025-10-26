@@ -39,13 +39,13 @@
                         'actions' => array_filter([
                             [
                                 'name' => 'edit',
-                                'url' => route('dashboard.tables.edit', $table->tables_id),
+                                'url' => route('dashboard.tables.edit', $table->encrypted_id),
                                 'label' => view('icons.pencil-square')->render(),
                                 'color' => 'blue'
                             ],
                             [
                                 'name' => 'delete',
-                                'url' => route('dashboard.tables.destroy', $table->tables_id),
+                                'url' => route('dashboard.tables.destroy', $table->encrypted_id),
                                 'label' => view('icons.trash')->render(),
                             ],
                         ]),

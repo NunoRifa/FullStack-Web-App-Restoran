@@ -6,6 +6,7 @@ use App\Models\MenuItem;
 use App\Http\Requests\Dashboard\MenuItemStoreRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 use Exception;
 
@@ -52,8 +53,11 @@ class MenuItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MenuItem $menuItem)
+    public function edit($encryptedId)
     {
+        $id = Crypt::decryptString($encryptedId);
+        $menuItem = MenuItem::findOrFail($id);
+
         return view('layouts.dashboard.master-menu.edit', compact('menuItem'));
     }
 
@@ -70,9 +74,12 @@ class MenuItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MenuItem $menuItem)
+    public function destroy($encryptedId)
     {
         try {
+            $id = Crypt::decryptString($encryptedId);
+            $menuItem = MenuItem::findOrFail($id);
+
             $menuItem->delete();
             return redirect()->route('dashboard.menuItems.index')->with('success', 'Menu deleted successfully.');
         } catch (Exception $e) {

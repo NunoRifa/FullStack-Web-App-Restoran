@@ -6,6 +6,7 @@ use App\Models\Table;
 use App\Http\Requests\Dashboard\TableStoreRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 use Exception;
 
@@ -52,8 +53,11 @@ class TableController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Table $table)
+    public function edit($encriptedId)
     {
+        $id = Crypt::decryptString($encriptedId);
+        $table = Table::findOrFail($id);
+
         return view('layouts.dashboard.master-table.edit', compact('table'));
     }
 
@@ -70,9 +74,12 @@ class TableController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Table $table)
+    public function destroy($encriptedId)
     {
         try {
+            $id = Crypt::decryptString($encriptedId);
+            $table = Table::findOrFail($id);
+
             $table->delete();
             return redirect()->route('dashboard.tables.index')
                 ->with('success', 'Table deleted successfully.');

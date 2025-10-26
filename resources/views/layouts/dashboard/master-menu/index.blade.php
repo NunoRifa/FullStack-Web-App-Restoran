@@ -25,13 +25,13 @@
                         'actions' => array_filter([
                             [
                                 'name' => 'edit',
-                                'url' => route('dashboard.menuItems.edit', $menu->menu_items_id),
+                                'url' => route('dashboard.menuItems.edit', $menu->encrypted_id),
                                 'label' => view('icons.pencil-square')->render(),
                                 'color' => 'blue'
                             ],
                             [
                                 'name' => 'delete',
-                                'url' => route('dashboard.menuItems.destroy', $menu->menu_items_id),
+                                'url' => route('dashboard.menuItems.destroy', $menu->encrypted_id),
                                 'label' => view('icons.trash')->render(),
                             ],
                         ]),

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 
 class MenuItem extends Model
 {
@@ -86,6 +87,11 @@ class MenuItem extends Model
         }
 
         return 'Rp ' . number_format($this->menu_items_price, 0, ',', '.');
+    }
+
+    public function getEncryptedIdAttribute(): string
+    {
+        return Crypt::encryptString($this->menu_items_id);
     }
 
     public function isActive(): bool

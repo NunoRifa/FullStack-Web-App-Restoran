@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 
 class Table extends Model
 {
@@ -82,6 +83,11 @@ class Table extends Model
         }
 
         return $query;
+    }
+
+    public function getEncryptedIdAttribute(): string
+    {
+        return Crypt::encryptString($this->tables_id);
     }
 
     public function isAvailable(): bool
