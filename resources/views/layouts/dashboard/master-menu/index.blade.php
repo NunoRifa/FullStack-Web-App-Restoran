@@ -3,7 +3,7 @@
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
             <x-form-card :title="__('List Menu')">
                 <x-table
-                :create="auth()->user() ? ['url' => route('dashboard.menu.create'), 'label' => __('Buat Menu')] : null"
+                :create="auth()->user() ? ['url' => route('dashboard.menuItems.create'), 'label' => __('Buat Menu')] : null"
                 :headers="['id', 'menu_items_name', 'menu_items_price', 'menu_items_category', 'is_active']"
                 :labels="[
                     'Kode Menu',
@@ -25,18 +25,19 @@
                         'actions' => array_filter([
                             [
                                 'name' => 'edit',
-                                'url' => route('dashboard.menu.edit', $menu->menu_items_id),
+                                'url' => route('dashboard.menuItems.edit', $menu->menu_items_id),
                                 'label' => view('icons.pencil-square')->render(),
                                 'color' => 'blue'
                             ],
                             [
                                 'name' => 'delete',
-                                'url' => route('dashboard.menu.destroy', $menu->menu_items_id),
+                                'url' => route('dashboard.menuItems.destroy', $menu->menu_items_id),
                                 'label' => view('icons.trash')->render(),
                             ],
                         ]),
                     ];
                 })"
+                :pagination="$menus->links()"
                 />
             </x-form-card>
         </div>

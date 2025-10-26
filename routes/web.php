@@ -32,7 +32,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard.')
 
 // Menu
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard.')->group(function () {
-    Route::resource('menu', MenuItemController::class)->except(['show']);
+    Route::resource('menuItems', MenuItemController::class)->except(['show']);
 });
 
 Route::middleware(['auth'])->group(function () {

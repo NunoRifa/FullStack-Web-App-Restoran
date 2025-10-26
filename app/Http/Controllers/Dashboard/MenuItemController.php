@@ -7,6 +7,8 @@ use App\Http\Requests\Dashboard\MenuItemStoreRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Exception;
+
 class MenuItemController extends Controller
 {
     /**
@@ -36,7 +38,7 @@ class MenuItemController extends Controller
     {
         MenuItem::create($request->validated());
 
-        return redirect()->route('dashboard.menu.index')->with('success', 'Table created successfully.');
+        return redirect()->route('dashboard.menuItems.index')->with('success', 'Table created successfully.');
     }
 
     /**
@@ -68,6 +70,11 @@ class MenuItemController extends Controller
      */
     public function destroy(MenuItem $menuItem)
     {
-        //
+        try {
+            $menuItem->delete();
+            return redirect()->route('dashboard.menuItems.index')->with('success', 'Menu deleted successfully.');
+        } catch (Exception $e) {
+            return redirect()->route('dashboard.menuItems.index')->with('error', 'Failed deleted successfully.');
+        }
     }
 }

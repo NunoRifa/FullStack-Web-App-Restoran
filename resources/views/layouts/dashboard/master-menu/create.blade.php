@@ -2,7 +2,7 @@
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
             <x-form-card :title="__('Buat Menu')">
-                <form action="{{ route('dashboard.menu.store') }}" method="post">
+                <form action="{{ route('dashboard.menuItems.store') }}" method="post">
                     @csrf
                     @method('post')
 
@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <a href="{{ route('dashboard.menu.index') }}">
+                        <a href="{{ route('dashboard.menuItems.index') }}">
                             <x-secondary-button>{{ __('Back') }}</x-secondary-button>
                         </a>
                         <x-primary-button>{{ __('Save') }}</x-primary-button>
