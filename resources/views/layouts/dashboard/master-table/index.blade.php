@@ -15,10 +15,10 @@
                 ]"
                 :data="$tables->map(function($table, $key) {
                     return [
-                        'id' => $table->tables_id,
-                        'tables_name' => $table->tables_name,
-                        'tables_capacity' => $table->tables_capacity,
-                        'tables_location' => $table->tables_location,
+                        'id' => e($table->tables_id),
+                        'tables_name' => e($table->tables_name),
+                        'tables_capacity' => e($table->tables_capacity),
+                        'tables_location' => e($table->tables_location),
                         'tables_status' => @verbatim
                             $table->tables_status === 'Available'
                                 ? '<span class="bg-green-100 text-green-700 text-sm px-2 py-1 mx-px mb-2 rounded-md inline-block break-all">'.__('Available').'</span>'
